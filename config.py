@@ -67,6 +67,7 @@ class Config:
     '''
     
     # subset = 'seg2tunnel'
+    
     subset = 'seg2tunnel_ring'
     # subset = 'seg2tunnel_dublin'
     # subset = 'seg2tunnel_wuxi'
@@ -74,7 +75,7 @@ class Config:
     voxel_size = 0.04
     
     if subset == 'seg2tunnel':
-        data_path = '../Seg2Tunnel/seg2tunnel' 
+        data_path = '/mnt/c/Users/zy349/Documents/Points2NeRF/Seg2Tunnel/Normalised' 
         flag_prep = 'ring-wise'
         flag_pipe = 'sphere_crop'
         num_raw_features = 4
