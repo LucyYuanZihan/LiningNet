@@ -11,44 +11,45 @@ class Config:
     Keep this part uncommented when using HPC.
     '''
     
-    # num_points = 204800
+    '''num_points = 204800
     
-    # training_num = 3000
-    # validation_num = 600
-    # test_num = 1000
-    # demo_num = 1
+    training_num = 3000
+    validation_num = 600
+    test_num = 1000
+    demo_num = 1
     
-    # training_batch_size = 8
-    # validation_batch_size = 1
-    # test_batch_size = 1
-    # demo_batch_size = 1
+    training_batch_size = 8
+    validation_batch_size = 1
+    test_batch_size = 1
+    demo_batch_size = 1
     
-    # num_workers = 32
+    num_workers = 24'''
     
     '''
     --------PC--------
     Keep this part uncommented when using PC.
     '''
 
-    # num_points = 102400
+    num_points = 40960
     
-    # training_num = 30
-    # validation_num = 6
-    # test_num = 1000
-    # demo_num = 1
+    training_num = 30
+    validation_num = 6
+    test_num = 10000
+    demo_num = 1
     
-    # training_batch_size = 1
-    # validation_batch_size = 1
-    # test_batch_size = 1
-    # demo_batch_size = 1
+    training_batch_size = 1
+    validation_batch_size = 1
+    test_batch_size = 1
+    demo_batch_size = 1
     
-    # num_workers = 16
+    num_workers = 16
     
     '''
     --------Ring--------
     '''
     
-    num_points = 12288
+    
+    '''num_points = 12288
     
     training_num = 3000
     validation_num = 600
@@ -60,29 +61,29 @@ class Config:
     test_batch_size = 1
     demo_batch_size = 1
     
-    num_workers = 16
+    num_workers = 16'''
     
     '''
     --------DATASET--------
     '''
     
-    # subset = 'seg2tunnel'
-    
-    subset = 'seg2tunnel_ring'
+    subset = 'seg2tunnel'
+
+    # subset = 'seg2tunnel_ring'
     # subset = 'seg2tunnel_dublin'
     # subset = 'seg2tunnel_wuxi'
     
     voxel_size = 0.04
     
     if subset == 'seg2tunnel':
-        data_path = '/mnt/c/Users/zy349/Documents/Points2NeRF/Seg2Tunnel/Normalised' 
+        data_path = '/mnt/c/Users/zy349/Documents/Points2NeRF/Seg2Tunnel/T1' 
         flag_prep = 'ring-wise'
         flag_pipe = 'sphere_crop'
         num_raw_features = 4
         num_classes = 7
-        training_stations = ['1-1', '1-2', '1-3', '1-5', '1-6', '1-7', '1-8', '1-9', '1-10', '1-11', '1-13', '1-14', '1-16', '1-17', '2-1', '2-3', '2-4', '2-5', '2-6', '2-7', '2-8', '2-9', '2-11', '2-12', '2-13']
+        training_stations = ['1-1', '1-2', '1-3', '1-5', '1-6', '1-7', '1-8', '1-9', '1-10', '1-11', '1-13', '1-14', '1-16', '1-17', ] #'2-1', '2-3', '2-4', '2-5', '2-6', '2-7', '2-8', '2-9', '2-11', '2-12', '2-13']
         validation_stations = ['1-4', '1-12', '1-15', '2-2', '2-10', '2-14']
-        test_stations = ['1-4', '1-12', '1-15', '2-2', '2-10', '2-14']
+        test_stations = ['1-4', '1-12', '1-15'] #['2-2', '2-10', '2-14']
         demo_stations = ['1-4']
     elif subset == 'seg2tunnel_ring':
         data_path = '../Seg2Tunnel/seg2tunnel'
@@ -195,13 +196,13 @@ class Config:
     --------RFA--------
     '''
     
-    rfa = False
+    rfa = True
     
     '''best'''
-    # rfa = 'lin_v1'
-    # rfa_param = 1
+    rfa = 'lin_v1'
+    rfa_param = 1
     '''best'''
-    # rfa_pooling = 'max'
+    rfa_pooling = 'max'
     # rfa_pooling = 'mean'
     
     # rfa = 'lin_v2'
