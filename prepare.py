@@ -7,6 +7,42 @@ from sklearn.neighbors import KDTree
 from config import Config as cfg
 
 
+"""
+File: prepare.py
+Project: LiningNet
+
+Description:
+This script handles the rigorous data preprocessing pipeline for the LiningNet 
+architecture. It ingests raw point cloud data (in space-separated text/CSV format) 
+of segmental tunnel linings, applies necessary geometric and radiometric transformations, 
+and outputs highly optimized binary files ready for 3D deep learning model training 
+and evaluation.
+
+Key Operations:
+* Data Grouping: Aggregates individual ring point clouds into continuous tunnel 
+    "stations" or scenes based on configuration settings.
+* Voxel Downsampling: Applies a voxel grid filter to uniformize point density 
+    and reduce data redundancy.
+* Intensity Normalization: Clips raw laser intensity at the 1st and 99th percentiles 
+    to remove outliers, then min-max scales the values to a [0, 1] range.
+* Mean Centering: Translates the point cloud to the origin (0,0,0) by subtracting 
+    the mean XYZ coordinates to stabilize network training.
+* Spatial Partitioning: Constructs and saves a scikit-learn KDTree for rapid 
+    nearest-neighbor queries (used for sphere-cropping during data loading).
+
+Inputs:
+* Raw point cloud files (.txt or .csv) located in `cfg.data_path`.
+* Configuration parameters imported from `config.py` (e.g., `voxel_size`, 
+    `flag_prep`, train/test splits).
+
+Outputs (saved to `cfg.data_path_{voxel_size}`):
+* `{station}.npy`: Processed, downsampled, centered, and shuffled point cloud arrays.
+* `{station}_KDTree.pkl`: Pickled KDTree objects for fast spatial subsetting.
+* `mean_xyz.pkl`: A dictionary mapping station names to their original geographic 
+    centers, allowing predictions to be mapped back to real-world coordinates.
+"""
+
+
 def grid_sample(points, voxel_size):
     
     features = points[:, 3:]
@@ -32,6 +68,9 @@ def grid_sample(points, voxel_size):
 
 
 def norm_intensity(intensity):
+    
+    """This function calculates the 1st and 99th percentiles of the intensity values, 
+    clips any outliers outside this range, and then scales all intensity values to sit neatly between 0 and 1."""
     
     bottom, up = np.percentile(intensity, 1), np.percentile(intensity, 99)
     if bottom != up:
